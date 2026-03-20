@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-
+import { getStagedDiff } from "./git/diff";
 import { Command } from 'commander';
 import chalk from 'chalk';
 // test
@@ -21,4 +21,11 @@ program
       console.log(chalk.red('Error!'));
    });
 
+program
+  .command("diff")
+  .description("Show staged diff")
+  .action(async () => {
+    const diff = await getStagedDiff();
+    console.log(diff);
+  });
 program.parse(process.argv);
