@@ -14,7 +14,11 @@ program
    .command('hello')
    .description('Test command')
    .action(() => {
-     console.log(chalk.green('Hello from git-ai-commit!'));
+      console.log(chalk.green.bold('Hello from git-ai-commit!'));
+      console.log(chalk.blue.bold("Welcome to git-ai-commit CLI"));
+      console.log(chalk.blue.bold('Information'));
+      console.log(chalk.green.bold('Success!'));
+      console.log(chalk.red('Error!'));
    });
 
 program.parse(process.argv);
