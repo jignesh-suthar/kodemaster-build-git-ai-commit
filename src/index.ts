@@ -2,9 +2,8 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-
+// test
 const program = new Command();
-//data
 program
   .name('git-ai-commit')
   .description('AI-powered commit message generator')
