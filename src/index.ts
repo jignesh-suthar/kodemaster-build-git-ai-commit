@@ -3,6 +3,7 @@ import { getStagedDiff } from "./git/diff";
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { parseDiff } from "./git/parser";
+import { FileChange } from "./types";
 
 // test
 const program = new Command();
@@ -64,4 +65,22 @@ program
     );
   });
   
+
+
+// 🚫 Ignore list
+const IGNORE_FILES = [
+  "package-lock.json",
+  "yarn.lock",
+  "pnpm-lock.yaml",
+  ".DS_Store"
+];
+
+// 🔍 Filter function
+export function filterChanges(changes: FileChange[]): FileChange[] {
+  return changes.filter((change) => {
+    return !IGNORE_FILES.some((ignore) =>
+      change.file.includes(ignore)
+    );
+  });
+}
 program.parse(process.argv);
