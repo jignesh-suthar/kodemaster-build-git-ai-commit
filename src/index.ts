@@ -40,4 +40,28 @@ program
 
     console.log(parsed);
   });
+
+  program
+  .command("generate")
+  .description("Generate commit message from staged changes")
+  .action(async () => {
+    const diff = await getStagedDiff();
+
+    // ❌ Validation: No staged changes
+    if (!diff || diff.trim() === "") {
+      console.log(
+        chalk.red("❌ No staged changes found. Did you forget to git add?")
+      );
+      process.exit(1);
+    }
+
+    // ✅ Parse diff
+    const parsed = parseDiff(diff);
+
+    // ✅ Success message
+    console.log(
+      chalk.green(`✅ Found ${parsed.length} changed file(s)`)
+    );
+  });
+  
 program.parse(process.argv);
