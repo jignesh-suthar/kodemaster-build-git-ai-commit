@@ -2,6 +2,8 @@
 import { getStagedDiff } from "./git/diff";
 import { Command } from 'commander';
 import chalk from 'chalk';
+import { parseDiff } from "./git/parser";
+
 // test
 const program = new Command();
 program
@@ -27,5 +29,15 @@ program
   .action(async () => {
     const diff = await getStagedDiff();
     console.log(diff);
+  });
+  
+  program
+  .command("parse")
+  .description("Parse staged diff")
+  .action(async () => {
+    const diff = await getStagedDiff();
+    const parsed = parseDiff(diff);
+
+    console.log(parsed);
   });
 program.parse(process.argv);
